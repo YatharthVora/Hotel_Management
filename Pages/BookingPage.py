@@ -1,12 +1,19 @@
 import streamlit as st
 import datetime
 import re
-
+import pathlib
+st.set_page_config(
+    layout="wide"
+)
+def load_css(file_path):
+    with open(file_path) as f:
+        st.html(f"<style>{f.read()}</style>")
 def main():
-    st.title("Booking Page")
+    st.markdown("<h1 style='text-align:center;'>Booking Page</h1>",unsafe_allow_html=True)
     
     # Room Selection
-    st.sidebar.header("Select Room Category")
+    st.sidebar.markdown("<h3 style='color:white;'>Select Room Category</h3>",unsafe_allow_html=True)
+    st.sidebar.markdown("---")
     categories = ["Regular", "Deluxe", "King Bed"]
     if "room_category" not in st.session_state:
         st.session_state.room_category = None
@@ -18,7 +25,6 @@ def main():
         st.sidebar.success(f"Selected: {room_category}")
     
     # Booking Info
-    st.header("Booking Information")
     name = st.text_input("Name")
     age = st.number_input("Age", 1, 120, step=1)
     dob = st.date_input("Date of Birth", value=datetime.date(2000, 1, 1), min_value=datetime.date(1900, 1, 1))
@@ -52,4 +58,6 @@ def main():
 
 
 if __name__ == "__main__":
+    css_path=pathlib.Path("Pages/style.css")
+    load_css(css_path)
     main()
