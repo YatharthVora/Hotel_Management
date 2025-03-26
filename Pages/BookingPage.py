@@ -21,6 +21,8 @@ def main():
     if st.button("Confirm Booking"):
         st.success(f"Booking confirmed for {name} in {room_category} category.")
         st.info(f"Package: {package} | Duration: {duration} nights | Guests: {guests}")
+    if(st.button("Home")):
+        st.switch_page("Pages/HomePage.py")
 
 
 if __name__ == "__main__":
