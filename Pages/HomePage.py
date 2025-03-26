@@ -54,7 +54,7 @@ if(selected=="Checkout"):
     pass
 
 
-b4=st.sidebar.button("***Log out***",icon="🚪",use_container_width=True)
+b4=st.sidebar.button("***Log out***",icon="🚪",key="logout",use_container_width=True)
 
 col1,col2=st.columns(2,border=True)
 with col1:
@@ -76,7 +76,7 @@ with col2:
     st.write(f"<h3>Available:{st.session_state.available}</h3>",unsafe_allow_html=True)
     st.write(f"<h3>Vacant:{st.session_state.vacant}</h3>",unsafe_allow_html=True)
 add_room=st.button("Addition of Room",key="RoomAddition",icon="➕")
-revenue_cont=st.container(border=True)
+revenue_cont=st.container(border=True,key="revenue")
 revenue_cont.write(f"<h1 style='margin-left:100px;'>Revenue:{st.session_state.revenue}</h1>",unsafe_allow_html=True)
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")

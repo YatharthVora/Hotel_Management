@@ -1,13 +1,8 @@
 
-/* .st-key-room button
+.st-key-logout button
 {
-    
+    background-color: #EFEFD0;
 } 
-
-.st-key-booking button
-{
-    background-color: brown;
-} */
  .st-key-RoomAddition button
  {
     margin-left: 350px;
@@ -16,9 +11,36 @@
  }
 .stApp
 {
-    background-color: #EEE3CB;
+    background-color: #aed9e0;
 }
 .stSidebar
 {
-    background-color: #967E76;
+    background-color: #e29578;
 }
+.st-key-Regular button
+{
+    background-color: #EFEFD0
+}
+.st-key-King-Bed button
+{
+    background-color: #EFEFD0
+}
+.st-key-Deluxe button
+{
+    background-color: #EFEFD0
+}
+
+.st-key-confirm button
+{
+    background-color: #EFEFD0
+}
+.stColumn
+{
+    border-width: 3px !important;
+    border-color: #FF5733 !important;
+}
+.st-key-revenue
+{
+    border: 100px !important;
+}
+

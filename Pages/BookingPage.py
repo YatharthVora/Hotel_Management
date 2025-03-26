@@ -40,7 +40,7 @@ def main():
     duration = (check_out - check_in).days
     
     # Booking Confirmation
-    if st.button("Confirm Booking", use_container_width=True):
+    if st.button("Confirm Booking",key="confirm", use_container_width=True):
         try:
             if not re.match(r"^[A-Za-z ]+$", name):
                 raise ValueError("Enter a valid name without numbers/special characters.")
