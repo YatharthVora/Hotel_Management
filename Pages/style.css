@@ -2,6 +2,7 @@
 .st-key-logout button
 {
     background-color: #EFEFD0;
+    
 } 
  .st-key-RoomAddition button
  {
@@ -39,8 +40,10 @@
     border-width: 3px !important;
     border-color: #FF5733 !important;
 }
-.st-key-revenue
+div.st-emotion-cache-1fmfajh.eu6p4el5
 {
-    border: 100px !important;
+    border-color: #FF5733 !important;
+    border-width: 3px !important;
+
 }
 

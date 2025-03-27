@@ -1,7 +1,7 @@
 import streamlit as st
-from PIL import Image
 import pathlib
 from streamlit_option_menu import option_menu 
+
 st.set_page_config(
     layout="wide"
 )
@@ -9,9 +9,15 @@ def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 
-def increase():
+def increase():    
     pass
-   
+
+@st.dialog("Add Room")
+def addroom():
+    room_number=st.text_input("Room Number:",placeholder="Enter")
+    if(st.button("Add")):
+        #addition of dictionary
+        st.rerun()
 if "regular" not in st.session_state:
     st.session_state.regular=0 
     
@@ -76,6 +82,8 @@ with col2:
     st.write(f"<h3>Available:{st.session_state.available}</h3>",unsafe_allow_html=True)
     st.write(f"<h3>Vacant:{st.session_state.vacant}</h3>",unsafe_allow_html=True)
 add_room=st.button("Addition of Room",key="RoomAddition",icon="➕")
+if(add_room):
+    addroom()
 revenue_cont=st.container(border=True,key="revenue")
 revenue_cont.write(f"<h1 style='margin-left:100px;'>Revenue:{st.session_state.revenue}</h1>",unsafe_allow_html=True)
 if __name__=="__main__":
