@@ -8,6 +8,19 @@ st.set_page_config(
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
+if "regular" not in st.session_state:
+    st.session_state.regular=0 
+if "delux" not in st.session_state: 
+    st.session_state.delux=0
+
+if "kingbed" not in st.session_state:
+    st.session_state.kingbed=0
+if "available" not in st.session_state:
+    st.session_state.available=0
+if "vacant" not in st.session_state:
+    st.session_state.vacant=0
+if "revenue" not in st.session_state:
+    st.session_state.revenue=0
 
 def increase(category):
     if(category=="Regular"):
@@ -28,27 +41,13 @@ def addroom():
         increase(category)
         main.add(room_number,category)
         st.rerun()
-if "regular" not in st.session_state:
-    st.session_state.regular=0 
-    
-if "delux" not in st.session_state: 
-    st.session_state.delux=0
-    
-if "kingbed" not in st.session_state:
-    st.session_state.kingbed=0
-if "available" not in st.session_state:
-    st.session_state.available=0
-if "vacant" not in st.session_state:
-    st.session_state.vacant=0
-if "revenue" not in st.session_state:
-    st.session_state.revenue=0
 
-cat_counter=st.container()
+
+
 selected=option_menu(
     menu_title=None,
-    options=["Room","Booking","Check Out"],
-    default_index=-1,
-    icons=["lamp-fill","book-fill","lock-fill"],
+    options=["Home","Room","Booking","Check Out"],
+    icons=["house-fill","lamp-fill","book-fill","lock-fill"],
     orientation="horizontal",
     styles=
     {
@@ -66,8 +65,8 @@ if(selected=="Room"):
     st.switch_page("Pages/RoomPage.py")
 if(selected=="Booking"):
     st.switch_page("Pages/BookingPage.py")
-if(selected=="Checkout"):
-    pass
+if(selected=="Check Out"):
+    st.switch_page("Pages/CheckOut.py")
 
 
 b4=st.sidebar.button("***Log out***",icon="🚪",key="logout",use_container_width=True)

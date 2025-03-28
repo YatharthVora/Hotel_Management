@@ -2,9 +2,6 @@ import streamlit as st
 import datetime
 import re
 import pathlib
-st.set_page_config(
-    layout="wide"
-)
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")

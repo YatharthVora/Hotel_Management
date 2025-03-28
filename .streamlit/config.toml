@@ -4,3 +4,5 @@ showSidebarNavigation = false
 backgroundColor="#aed9e0"
 textColor="black"
 font="Algerian"  # Options: "sans serif", "serif", or "monospace"
+[server]
+headless=true

@@ -1,9 +1,6 @@
 import streamlit as st
 import pathlib
 from streamlit_extras.dataframe_explorer import dataframe_explorer
-st.set_page_config(
-    layout="wide"
-)
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
