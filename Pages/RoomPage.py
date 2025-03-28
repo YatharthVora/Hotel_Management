@@ -17,6 +17,8 @@ rooms=["101","102","103"]
 rooms=st.sidebar.multiselect("Room:",options=rooms)
 
 status_room=st.sidebar.radio("Status",["Available","Occupied","Cleaning"],index=None)
+if(st.sidebar.button("⬅️Back")):
+    st.switch_page("Pages/HomePage.py")
 
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")

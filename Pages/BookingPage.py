@@ -58,3 +58,5 @@ if __name__ == "__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)
     main()
+    if(st.sidebar.button("⬅️Back")):
+        st.switch_page("Pages/HomePage.py")

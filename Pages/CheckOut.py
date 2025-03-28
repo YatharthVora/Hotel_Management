@@ -7,7 +7,8 @@ def load_css(file_path):
 
 st.title("Check out")
 
-
+if(st.sidebar.button("⬅️Back")):
+    st.switch_page("Pages/HomePage.py")
 
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
