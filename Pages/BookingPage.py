@@ -45,7 +45,7 @@ def main():
                 raise ValueError("Minimum booking age is 18.")
             if not room_category:
                 raise ValueError("Select a room category.")
-            if not re.match(r"^\d{3,5}$", room_number):
+            if not re.match(r"^\d{1,5}$", room_number):
                 raise ValueError("Enter a valid room number (e.g., 401, 5001).")
             
             st.success(f"Booking confirmed for {name} in {room_category} category.")
