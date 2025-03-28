@@ -1,12 +1,17 @@
 import streamlit as st
 import datetime
 import re
-
+import pathlib
+import main
+def load_css(file_path):
+    with open(file_path) as f:
+        st.html(f"<style>{f.read()}</style>")
 def main():
     st.title("Booking Page")
     
     # Room Selection
-    st.sidebar.header("Select Room Category")
+    st.sidebar.markdown("<h3 style='color:white;'>Select Room Category</h3>",unsafe_allow_html=True)
+    st.sidebar.markdown("---")
     categories = ["Regular", "Deluxe", "King Bed"]
     if "room_category" not in st.session_state:
         st.session_state.room_category = None
@@ -24,7 +29,7 @@ def main():
     dob = st.date_input("Date of Birth", value=datetime.date(2000, 1, 1), min_value=datetime.date(1900, 1, 1))
     guests = st.number_input("Number of Guests", 1, step=1)
     package = st.selectbox("Select Package", ["Room Only", "Room + Resto"])
-    room_number = st.text_input("Enter Room Number", placeholder="e.g., 401, 5001")
+    room_number = st.multiselect("Enter Room Number",options=["101"], placeholder="e.g., 401, 5001")
     
     # Duration of Stay (Date Range Selection)
     st.subheader("Select Stay Duration")
@@ -54,6 +59,8 @@ def main():
             st.error(str(e))
 
 if __name__ == "__main__":
+    css_path=pathlib.Path("Pages/style.css")
+    load_css(css_path)    
     main()
     if(st.sidebar.button("⬅️Back")):
         st.switch_page("Pages/HomePage.py")
