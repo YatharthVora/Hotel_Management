@@ -1,19 +1,12 @@
-from fastapi import FastAPI
-from typing import List,Optional
-from pydantic import BaseModel,Field
-app=FastAPI()
+import LoginPage
+from Pages import HomePage,RoomPage,BookingPage
 
-class room(BaseModel):
-    id:str=None
-    category:str=None
-class occupants(room):
-    id:Optional[str]=None
-    category:Optional[str]=None
-    name:str=None
-    age:int=None
-    package:str=None
-
-@app.post("/{room}")
-async def update_rooms(room:str):
-    pass
+rooms={}
+count =0
+def add(room,category):
+    count=len(rooms) 
+    if(count==0):
+        count+=1
+    rooms[room]={"category":category}
+    print(rooms)
     

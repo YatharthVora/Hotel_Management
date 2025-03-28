@@ -1,7 +1,7 @@
 import streamlit as st
 import pathlib
 from streamlit_option_menu import option_menu 
-
+import main
 st.set_page_config(
     layout="wide"
 )
@@ -9,14 +9,24 @@ def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 
-def increase():    
-    pass
+def increase(category):
+    if(category=="Regular"):
+        st.session_state.regular+=1
+    elif category=="Deluxe":
+        st.session_state.delux+=1
+    elif category=="King bed":
+        st.session_state.kingbed+=1
+    else:
+        pass
+    st.session_state.available+=1
 
 @st.dialog("Add Room")
 def addroom():
     room_number=st.text_input("Room Number:",placeholder="Enter")
+    category=st.radio("Category",["Regular","Deluxe","King bed"],index=None)
     if(st.button("Add")):
-        #addition of dictionary
+        increase(category)
+        main.add(room_number,category)
         st.rerun()
 if "regular" not in st.session_state:
     st.session_state.regular=0 
@@ -67,8 +77,7 @@ with col1:
     st.markdown("<h2 style='text-align:center;'>Category</h1>",unsafe_allow_html=True)
     st.markdown("---")
     c1,c2=st.columns(2)
-    if(increase()):
-        st.session_state.regular+=1
+    
     st.write(f"<h3>Regular:{st.session_state.regular}</h3>",unsafe_allow_html=True)
     st.write(f"<h3>Delux:{st.session_state.delux}</h3>",unsafe_allow_html=True)
     st.write(f"<h3>King Bed:{st.session_state.kingbed}</h3>",unsafe_allow_html=True)
@@ -77,8 +86,6 @@ with col2:
     st.markdown("<h2 style='text-align:center;'>Rooms</h1>",unsafe_allow_html=True)
     st.markdown("---")
     c1,c2=st.columns(2)
-    if(increase()):
-        st.session_state.regular+=1
     st.write(f"<h3>Available:{st.session_state.available}</h3>",unsafe_allow_html=True)
     st.write(f"<h3>Vacant:{st.session_state.vacant}</h3>",unsafe_allow_html=True)
 add_room=st.button("Addition of Room",key="RoomAddition",icon="➕")
