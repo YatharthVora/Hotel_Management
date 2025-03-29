@@ -8,37 +8,47 @@ st.set_page_config(
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
-if "regular" not in st.session_state:
-    st.session_state.regular=0 
-if "delux" not in st.session_state: 
-    st.session_state.delux=0
+if "single" not in st.session_state:
+    st.session_state.single=main.getcounter("single")
+if "duplex" not in st.session_state: 
+    st.session_state.duplex=main.getcounter("duplex")
 
-if "kingbed" not in st.session_state:
-    st.session_state.kingbed=0
+if "twin" not in st.session_state:
+    st.session_state.twin=main.getcounter("twin")
+if "suite" not in st.session_state:
+    main.setcounter("suite",0)
+    st.session_state.suite=main.getcounter("suite")
 if "available" not in st.session_state:
-    st.session_state.available=0
+    st.session_state.available=main.getcounter("available")
 if "vacant" not in st.session_state:
-    st.session_state.vacant=0
+    st.session_state.occupied=main.getcounter("occupied")
 if "revenue" not in st.session_state:
-    st.session_state.revenue=0
+    st.session_state.revenue=main.getcounter("revenue")
 
 def increase(category):
-    if(category=="Regular"):
-        st.session_state.regular+=1
-    elif category=="Deluxe":
-        st.session_state.delux+=1
-    elif category=="King bed":
-        st.session_state.kingbed+=1
+    if(category=="single"):
+        main.increasecounter("single")
+        st.session_state.single=main.getcounter("single")
+    elif category=="duplex":
+        main.increasecounter("duplex")
+        st.session_state.duplex=main.getcounter("duplex")
+    elif category=="twin":
+        main.increasecounter("twin")
+        st.session_state.twin=main.getcounter("twin")
+    elif category=="suite":
+        main.increasecounter("suite")
+        st.session_state.suite=main.getcounter("suite")
     else:
         pass
-    st.session_state.available+=1
+    main.increasecounter("available")
+    st.session_state.available=main.getcounter("available")
 
 @st.dialog("Add Room")
 def addroom():
     room_number=st.text_input("Room Number:",placeholder="Enter")
-    category=st.radio("Category",["Regular","Deluxe","King bed"],index=None)
+    category=st.radio("Category",["Single","Duplex","Twin","Suite"],index=None)
     if(st.button("Add")):
-        increase(category)
+        increase(category.lower())
         main.add(room_number,category)
         st.rerun()
 
@@ -51,7 +61,7 @@ selected=option_menu(
     orientation="horizontal",
     styles=
     {
-        "container": {"background-color": "#D7C0AE","border-radius":"0px"},
+        "container": {"background-color": "#433D8B","border-radius":"0px"},
         "nav-link":#for text in the bar
         {
             "font-size": "25px",
@@ -59,6 +69,7 @@ selected=option_menu(
             "margin": "0px",
             "--hover-color": "#eee",
         },
+        "nav-link-selected":{"background-color":"#5a0280"}
     }
 )
 if(selected=="Room"):
@@ -78,16 +89,17 @@ with col1:
     st.markdown("---")
     c1,c2=st.columns(2)
     
-    st.write(f"<h3>Regular:{st.session_state.regular}</h3>",unsafe_allow_html=True)
-    st.write(f"<h3>Delux:{st.session_state.delux}</h3>",unsafe_allow_html=True)
-    st.write(f"<h3>King Bed:{st.session_state.kingbed}</h3>",unsafe_allow_html=True)
+    st.write(f"<h3>Single:{st.session_state.single}</h3>",unsafe_allow_html=True)
+    st.write(f"<h3>Duplex:{st.session_state.duplex}</h3>",unsafe_allow_html=True)
+    st.write(f"<h3>Twin Room:{st.session_state.twin}</h3>",unsafe_allow_html=True)
+    st.write(f"<h3>Suite:{st.session_state.suite}</h3>",unsafe_allow_html=True)
         
 with col2:
     st.markdown("<h2 style='text-align:center;'>Rooms</h1>",unsafe_allow_html=True)
     st.markdown("---")
     c1,c2=st.columns(2)
     st.write(f"<h3>Available:{st.session_state.available}</h3>",unsafe_allow_html=True)
-    st.write(f"<h3>Vacant:{st.session_state.vacant}</h3>",unsafe_allow_html=True)
+    st.write(f"<h3>Occupied:{st.session_state.occupied}</h3>",unsafe_allow_html=True)
 add_room=st.button("Addition of Room",key="RoomAddition",icon="➕")
 if(add_room):
     addroom()

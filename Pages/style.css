@@ -1,31 +1,34 @@
 
 .st-key-logout button
 {
-    background-color: #EFEFD0;
-    
+    background-color: #433D8B;
 } 
  .st-key-RoomAddition button
  {
-    margin-left: 335px;
+    margin-left: 335px; 
     margin-top: 20px;
-    background-color:#9BABB8;
+    background-color:#5a0280;
  }
 
 .stSidebar
 {
-    background-color: #e29578;
+    background-color: #2e236c;
 }
-.st-key-Regular button
+.st-key-Duplex button
 {
-    background-color: #EFEFD0
+    background-color: #433D8B
 }
-.st-key-King-Bed button
+.st-key-Single button
 {
-    background-color: #EFEFD0
+    background-color: #433D8B
 }
-.st-key-Deluxe button
+.st-key-Twin button
 {
-    background-color: #EFEFD0
+    background-color: #433D8B
+}
+.st-key-suite button
+{
+    background-color: #433D8B
 }
 
 .st-key-confirm button
@@ -35,16 +38,23 @@
 .stColumn
 {
     border-width: 3px !important;
-    border-color: #FF5733 !important;
+    border-color: #d7afeb !important;
 }
 div.st-emotion-cache-1fmfajh.eu6p4el5
 {
-    border-color: #FF5733 !important;
     border-width: 3px !important;
-
+    border-color: #d7afeb !important;
 }
 div.st-emotion-cache-1vs77ny.e1icttdg0 hr
 {
     background-color:"white";
 }
 
+/* div.st-ae.st-af.st-ag.st-ah.st-ai.st-aj.st-ak.st-al.st-am.st-an.st-ao.st-ap.st-aq.st-ar.st-as.st-at.st-au st-av st-aw st-ax st-ay st-az st-b0 st-b1 st-b2 st-b3 st-b4 st-b5 st-b6 st-b7 st-b8 st-b9 st-ba
+{
+    color: "black";
+} */
+.st-key-back_room button
+{
+    background-color: #433D8B
+}

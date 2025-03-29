@@ -14,10 +14,11 @@ packages=("Room Only", "Room + Resto")
 category=st.sidebar.multiselect("Category:",options=Categories)
 package=st.sidebar.multiselect("Package:",options=packages)
 rooms=["101","102","103"]
-rooms=st.sidebar.multiselect("Room:",options=rooms)
+rooms=st.sidebar.multiselect("Room:",options=rooms,key="rooms")
 
 status_room=st.sidebar.radio("Status",["Available","Occupied","Cleaning"],index=None)
-if(st.sidebar.button("⬅️Back")):
+b5=st.sidebar.button("⬅️Back",key="back_room")
+if(b5):
     st.switch_page("Pages/HomePage.py")
 
 if __name__=="__main__":

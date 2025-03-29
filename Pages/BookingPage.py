@@ -7,12 +7,11 @@ def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 def main():
-    st.title("Booking Page")
     
     # Room Selection
-    st.sidebar.markdown("<h3 style='color:white;'>Select Room Category</h3>",unsafe_allow_html=True)
+    st.sidebar.markdown("<h3 style='color:C8ACD6;'>Select Room Category</h3>",unsafe_allow_html=True)
     st.sidebar.markdown("---")
-    categories = ["Regular", "Deluxe", "King Bed"]
+    categories = ["Single", "Duplex", "Twin","suite"]
     if "room_category" not in st.session_state:
         st.session_state.room_category = None
     for category in categories:
@@ -29,7 +28,7 @@ def main():
     dob = st.date_input("Date of Birth", value=datetime.date(2000, 1, 1), min_value=datetime.date(1900, 1, 1))
     guests = st.number_input("Number of Guests", 1, step=1)
     package = st.selectbox("Select Package", ["Room Only", "Room + Resto"])
-    room_number = st.multiselect("Enter Room Number",options=["101"], placeholder="e.g., 401, 5001")
+    room_number = st.selectbox("Enter Room Number",options=["401"], placeholder="e.g., 401, 5001")
     
     # Duration of Stay (Date Range Selection)
     st.subheader("Select Stay Duration")
