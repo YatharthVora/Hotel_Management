@@ -16,7 +16,7 @@ if "duplex" not in st.session_state:
 if "twin" not in st.session_state:
     st.session_state.twin=main.getcounter("twin")
 if "suite" not in st.session_state:
-    main.setcounter("suite",0)
+
     st.session_state.suite=main.getcounter("suite")
 if "available" not in st.session_state:
     st.session_state.available=main.getcounter("available")
@@ -24,6 +24,7 @@ if "vacant" not in st.session_state:
     st.session_state.occupied=main.getcounter("occupied")
 if "revenue" not in st.session_state:
     st.session_state.revenue=main.getcounter("revenue")
+
 
 def increase(category):
     if(category=="single"):
@@ -42,6 +43,7 @@ def increase(category):
         pass
     main.increasecounter("available")
     st.session_state.available=main.getcounter("available")
+    st.session_state.occupied=main.getcounter("occupied")
 
 @st.dialog("Add Room")
 def addroom():
@@ -51,7 +53,6 @@ def addroom():
         increase(category.lower())
         main.add(room_number,category)
         st.rerun()
-
 
 
 selected=option_menu(
