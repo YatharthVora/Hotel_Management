@@ -1,10 +1,11 @@
 import streamlit as st
 import pathlib  
-
+import main
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
-
+if "retrived" not in st.session_state:
+    st.session_state.retrived=True
 st.markdown("<h1 style='text-align:center;'>Login</h1>",unsafe_allow_html=True)
 with st.form(key="login_form"):
     username = st.text_input("Username")
@@ -19,5 +20,7 @@ if submit_button:
         st.error("Invalid username or password")
 
 if __name__=="__main__":
+    # if(st.session_state.retrived):
+    # main.retrive()
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)

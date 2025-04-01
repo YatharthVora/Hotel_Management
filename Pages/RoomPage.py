@@ -31,11 +31,13 @@ room_package=[]
 room_check_in=[]
 room_check_out=[]
 room_cat=[]
-for k in rooms.keys():
-    room_number.append(k)
-for i in rooms.values():
+room_status=[]
+
+for i in rooms:
     for j in i:
-        if(j=="category"):
+        if(j=="room"):
+            room_number.append(i[j])
+        elif(j=="category"):
             room_cat.append(i[j])
         elif j=="package":
             room_package.append(i[j])
@@ -49,11 +51,15 @@ for i in rooms.values():
             room_check_in.append(i[j])
         elif j=="checkout":
             room_check_out.append(i[j])
-        else:
+        elif j=="guests":
             room_guest.append(i[j])
+        elif j=="status":
+            room_status.append(i[j])
+        else:
+            pass
+
 def filter():
     pass
-
 df=pd.DataFrame(
     {
         "Rooms":room_number,
@@ -61,10 +67,11 @@ df=pd.DataFrame(
         "Package":room_package,
         "Name":room_name,
         "Age":room_age,
-        "Date of Birth":room_dob,
+        "Dob":room_dob,
         "Check-in":room_check_in,
         "Check-out":room_check_out,
         "Guest":room_guest,
+        "Status":room_status,
     }    
 )
 print(df)
@@ -72,12 +79,20 @@ st.dataframe(
     df,
     use_container_width=True,
     column_config={
-        "room":"Room",
-        "category":"Category"
+        "Room":"Room",
+        "Category":"Category",
+        "Name":"Name",
+        "Age":"Age",
+        "Package":"Package",
+        "Dob":"Date of Birth",
+        "Check-in":"Check-in",
+        "Check-out":"Check-out",
+        "Guest":"Guests",
+        "Status":"Status",
     },
     hide_index=True,
     on_select="ignore",
-    key="table"
+    key="table",
     )
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")

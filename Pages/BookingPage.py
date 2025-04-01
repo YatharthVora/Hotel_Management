@@ -11,24 +11,24 @@ def display():
     li=[]
     room=main.get_rooms()
     if(st.session_state.room_category=="Single"):
-        for k,v in room.items():
-            if(v["category"]=="Single"):
-                li.append(k)
+        for i in room:
+            if(i["category"]=="Single"):
+                li.append(i["room"])
     elif (st.session_state.room_category=="Duplex"):
-        for k,v in room.items():
-            if(v["category"]=="Duplex"):
-                li.append(k)
+        for i in room:
+            if(i["category"]=="Duplex"):
+                li.append(i["room"])
     elif (st.session_state.room_category=="Twin"):
-        for k,v in room.items():
-            if(v["category"]=="Twin"):
-                li.append(k)
+        for i in room:
+            if(i["category"]=="Twin"):
+                li.append(i["Twin"])
     elif (st.session_state.room_category=="Suite"):
-        for k,v in room.items():
-            if(v["category"]=="Suite"):
-                li.append(k)
+        for i in room:
+            if(i["category"]=="Suite"):
+                li.append(i["room"])
     else:
-        li=list(main.get_rooms())
-        li=list(li)
+        for i in room:
+         li.append(i["room"])
     return li
 
 
@@ -80,7 +80,7 @@ if st.button("Confirm Booking", use_container_width=True):
         check_in=check_in.strftime("%d %m %y")
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
-        details={"name":name,"age":age,"Dob":dob,"checkin":(check_in),"checkout":check_out,"package":package,"guests":guests}
+        details={"name":name,"age":age,"Dob":dob,"checkin":(check_in),"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
         main.set_rooms(room_number,details)
         main.booked()
         st.success(f"Booking confirmed for {name} in {room_category} category.")
