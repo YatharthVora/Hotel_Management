@@ -63,7 +63,17 @@ check_in = st.date_input("Check-in Date", min_value=today)
 check_out = st.date_input("Check-out Date", min_value=check_in + datetime.timedelta(days=1))
 duration = (check_out - check_in).days
 
+# Calculate total price (Assume price per night based on category)
+price_per_night = {
+    "Single": 100,
+    "Duplex": 150,
+    "Twin": 200,
+    "Suite": 250
+}
+total_price = duration * price_per_night.get(room_category, 100)
 
+# Store total price in session state
+st.session_state.total_price = total_price
 # Booking Confirmation
 if st.button("Confirm Booking", use_container_width=True):
     try:
