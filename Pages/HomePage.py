@@ -2,57 +2,84 @@ import streamlit as st
 import pathlib
 from streamlit_option_menu import option_menu 
 import main
+import atexit
 st.set_page_config(
     layout="wide"
 )
+class error(Exception):
+    pass
+class InvalidRoomInput(error):
+    pass
+class InputCategory(error):
+    pass
+class Exists(error):
+    pass
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 if "single" not in st.session_state:
-    st.session_state.single=main.getcounter("single")
+    st.session_state.single=main.tracker.getcounter("single")
 if "duplex" not in st.session_state: 
-    st.session_state.duplex=main.getcounter("duplex")
+    st.session_state.duplex=main.tracker.getcounter("duplex")
 
 if "twin" not in st.session_state:
-    st.session_state.twin=main.getcounter("twin")
+    st.session_state.twin=main.tracker.getcounter("twin")
 if "suite" not in st.session_state:
 
-    st.session_state.suite=main.getcounter("suite")
+    st.session_state.suite=main.tracker.getcounter("suite")
 if "available" not in st.session_state:
-    st.session_state.available=main.getcounter("available")
+    st.session_state.available=main.tracker.getcounter("available")
 if "vacant" not in st.session_state:
-    st.session_state.occupied=main.getcounter("occupied")
+    st.session_state.occupied=main.tracker.getcounter("occupied")
 if "revenue" not in st.session_state:
-    st.session_state.revenue=main.getcounter("revenue")
+    st.session_state.revenue=main.tracker.getcounter("revenue")
 
 
 def increase(category):
     if(category=="single"):
-        main.increasecounter("single")
-        st.session_state.single=main.getcounter("single")
+        main.tracker.increasecounter("single")
+        st.session_state.single=main.tracker.getcounter("single")
     elif category=="duplex":
-        main.increasecounter("duplex")
-        st.session_state.duplex=main.getcounter("duplex")
+        main.tracker.increasecounter("duplex")
+        st.session_state.duplex=main.tracker.getcounter("duplex")
     elif category=="twin":
-        main.increasecounter("twin")
-        st.session_state.twin=main.getcounter("twin")
+        main.tracker.increasecounter("twin")
+        st.session_state.twin=main.tracker.getcounter("twin")
     elif category=="suite":
-        main.increasecounter("suite")
-        st.session_state.suite=main.getcounter("suite")
+        main.tracker.increasecounter("suite")
+        st.session_state.suite=main.tracker.getcounter("suite")
     else:
         pass
-    main.increasecounter("available")
-    st.session_state.available=main.getcounter("available")
-    st.session_state.occupied=main.getcounter("occupied")
+    main.tracker.increasecounter("available")
+    st.session_state.available=main.tracker.getcounter("available")
+    st.session_state.occupied=main.tracker.getcounter("occupied")
 
 @st.dialog("Add Room")
 def addroom():
-    room_number=st.text_input("Room Number:",placeholder="Enter")
-    category=st.radio("Category",["Single","Duplex","Twin","Suite"],index=None)
-    if(st.button("Add")):
-        increase(category.lower())
-        main.add(room_number,category)
-        st.rerun()
+    try:
+        room_number=st.text_input("Room Number:",placeholder="Enter")
+        category=st.radio("Category",["Single","Duplex","Twin","Suite"],index=None)
+        if(st.button("Add")):
+            if(room_number==""):
+                raise InvalidRoomInput
+            if(category==None):
+                raise InputCategory
+            li=main.tracker.get_rooms()
+            for i in li:
+                for j in i.values():
+                    if(j==room_number):
+                        raise Exists
+            increase(category.lower())
+            main.tracker.add(room_number,category)
+            st.rerun()
+    except InvalidRoomInput:
+        st.error("Enter the room")
+    except InputCategory:
+        st.error("Select the Category")
+    except Exists:
+        st.error("Exists")
+    
+    
 
 
 selected=option_menu(
@@ -107,9 +134,12 @@ if(add_room):
 revenue_cont=st.container(border=True,key="revenue")
 revenue_cont.write(f"<h1 style='margin-left:100px;'>Revenue:{st.session_state.revenue}</h1>",unsafe_allow_html=True)
 
-
-
-
+def on_exit():
+    main.tracker.store()
+    print("HOme")
+atexit.register(on_exit)
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)
+
+

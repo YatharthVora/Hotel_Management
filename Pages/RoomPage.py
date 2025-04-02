@@ -6,22 +6,21 @@ def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 
-def display():
-   pass
+
 
 st.markdown("<h1 style='text-align:center;'>Rooms</h1>",unsafe_allow_html=True)
 Categories=("Single", "Duplex", "Twin","Suite")
 packages=("Room Only", "Room + Resto")
 category=st.sidebar.selectbox("Category:",options=Categories)
 package=st.sidebar.selectbox("Package:",options=packages)
-rooms=list(main.get_rooms())
+rooms=list(main.tracker.get_rooms())
 rooms=st.sidebar.multiselect("Room:",options=rooms,key="rooms")
 
 status_room=st.sidebar.radio("Status",["Available","Occupied","Cleaning"],index=None)
 b5=st.sidebar.button("⬅️Back",key="back_room")
 if(b5):
     st.switch_page("Pages/HomePage.py")
-rooms=main.get_rooms()
+rooms=main.tracker.get_rooms()
 room_number=[]
 room_name=[]
 room_age=[]
@@ -64,16 +63,17 @@ df=pd.DataFrame(
     {
         "Rooms":room_number,
         "Category":room_cat,
-        "Package":room_package,
-        "Name":room_name,
-        "Age":room_age,
-        "Dob":room_dob,
-        "Check-in":room_check_in,
-        "Check-out":room_check_out,
-        "Guest":room_guest,
-        "Status":room_status,
+        "Package": None if(len(room_package)==0) else room_package ,
+        "Name":None if(len(room_name)==0) else room_name,
+        "Age":None if(len(room_age)==0) else room_age,
+        "Dob":None if(len(room_dob)==0) else room_dob,
+        "Check-in":None if(len(room_check_in)==0) else room_check_in,
+        "Check-out":None if(len(room_check_out)==0) else room_check_out,
+        "Guest":None if(len(room_guest)==0) else room_guest,
+        "Status":None if(len(room_status)==0) else room_status,
     }    
 )
+
 print(df)
 st.dataframe(
     df,
@@ -94,6 +94,7 @@ st.dataframe(
     on_select="ignore",
     key="table",
     )
+
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)

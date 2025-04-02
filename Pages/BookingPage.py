@@ -3,13 +3,14 @@ import datetime
 import re
 import pathlib
 import main
+
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
 
 def display():
     li=[]
-    room=main.get_rooms()
+    room=main.tracker.get_rooms()
     if(st.session_state.room_category=="Single"):
         for i in room:
             if(i["category"]=="Single"):
@@ -81,13 +82,12 @@ if st.button("Confirm Booking", use_container_width=True):
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
         details={"name":name,"age":age,"Dob":dob,"checkin":(check_in),"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
-        main.set_rooms(room_number,details)
-        main.booked()
+        main.tracker.set_rooms(room_number,details)
+        main.tracker.booked()
         st.success(f"Booking confirmed for {name} in {room_category} category.")
         st.info(f"Room Number: {room_number} | Package: {package} | Duration: {duration} nights | Guests: {guests}")
     except ValueError as e:
         st.error(str(e))
-
 if __name__ == "__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)    
