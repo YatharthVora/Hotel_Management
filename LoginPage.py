@@ -18,6 +18,7 @@ if submit_button:
         st.switch_page("Pages/HomePage.py")
     else:
         st.error("Invalid username or password")
+
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)

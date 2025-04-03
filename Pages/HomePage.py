@@ -133,11 +133,7 @@ if(add_room):
     addroom()
 revenue_cont=st.container(border=True,key="revenue")
 revenue_cont.write(f"<h1 style='margin-left:100px;'>Revenue:{st.session_state.revenue}</h1>",unsafe_allow_html=True)
-
-def on_exit():
-    main.tracker.store()
-    print("HOme")
-atexit.register(on_exit)
+atexit.register(main.tracker.store)
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)

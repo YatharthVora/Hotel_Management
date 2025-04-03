@@ -2,6 +2,7 @@ import streamlit as st
 import pathlib
 import pandas as pd
 import main
+
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
@@ -63,7 +64,6 @@ df=pd.DataFrame(
     {
         "Rooms":room_number,
         "Category":room_cat,
-        "Package": None if(len(room_package)==0) else room_package ,
         "Name":None if(len(room_name)==0) else room_name,
         "Age":None if(len(room_age)==0) else room_age,
         "Dob":None if(len(room_dob)==0) else room_dob,
@@ -94,6 +94,7 @@ st.dataframe(
     on_select="ignore",
     key="table",
     )
+
 
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")

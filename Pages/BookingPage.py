@@ -22,14 +22,13 @@ def display():
     elif (st.session_state.room_category=="Twin"):
         for i in room:
             if(i["category"]=="Twin"):
-                li.append(i["Twin"])
+                li.append(i["room"])
     elif (st.session_state.room_category=="Suite"):
         for i in room:
             if(i["category"]=="Suite"):
                 li.append(i["room"])
     else:
-        for i in room:
-         li.append(i["room"])
+        li=None
     return li
 
 
@@ -81,7 +80,7 @@ if st.button("Confirm Booking", use_container_width=True):
         check_in=check_in.strftime("%d %m %y")
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
-        details={"name":name,"age":age,"Dob":dob,"checkin":(check_in),"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
+        details={"name":name,"age":age,"Dob":dob,"checkin":check_in,"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
         main.tracker.set_rooms(room_number,details)
         main.tracker.booked()
         st.success(f"Booking confirmed for {name} in {room_category} category.")
