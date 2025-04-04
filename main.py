@@ -5,7 +5,7 @@ class tracker:
     rooms=[]
     counter={"single":0,"duplex":0,"twin":0,"suite":0,"available":0,"occupied":0,"revenue":0}
     data=[]
-    li= ["room","category","status","name","age","Dob","checkin","checkout","package","guests"]
+    li= ("room","category","status","name","age","Dob","checkin","checkout","package","guests")
     @classmethod
     def __init__(cls):
         cls.store_count=0
@@ -22,6 +22,14 @@ class tracker:
                         if(len(temp)>0):
                             cls.rooms.append(temp)
                         temp={}
+        with open("store.txt","r") as f:
+             tmp=f.readline()
+             li=tmp.split(",")
+             if(tmp!=""):
+                for ind,i in enumerate(cls.counter):
+                    if(li[ind]!=""):
+                        cls.counter[i]=int(li[ind])
+                  
         print("-------------------------retrived-----------------")
         print(cls.rooms)
     @classmethod
@@ -46,6 +54,9 @@ class tracker:
             writer=csv.writer(f)
             for i in cls.rooms:
                     writer.writerow(list(i.values()))
+        with open("store.txt","w",newline="") as f:
+             for i in cls.counter.values():
+                  f.write(f"{i},")                        
         print("stored")
     @classmethod
     def set_rooms(cls,room,details):
