@@ -17,6 +17,7 @@ class Exists(error):
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
+
 if "single" not in st.session_state:
     st.session_state.single=main.tracker.getcounter("single")
 if "duplex" not in st.session_state: 
@@ -134,6 +135,7 @@ if(add_room):
 revenue_cont=st.container(border=True,key="revenue")
 revenue_cont.write(f"<h1 style='margin-left:100px;'>Revenue:{st.session_state.revenue}</h1>",unsafe_allow_html=True)
 atexit.register(main.tracker.store)
+
 if __name__=="__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)

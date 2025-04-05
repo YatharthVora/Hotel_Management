@@ -6,6 +6,8 @@ class tracker:
     counter={"single":0,"duplex":0,"twin":0,"suite":0,"available":0,"occupied":0,"revenue":0}
     data=[]
     li= ("room","category","status","name","age","Dob","checkin","checkout","package","guests")
+    check_out=("status","name","age","Dob","checkin","checkout","package","guests")
+    Book=False
     @classmethod
     def __init__(cls):
         cls.store_count=0
@@ -71,6 +73,21 @@ class tracker:
     def booked(cls):
         cls.counter["available"]-=1
         cls.counter["occupied"]+=1
+    @classmethod
+    def checkout(cls,room):
+        for k,i in enumerate(cls.rooms):
+            print(i)
+            if(i["room"]==room):
+                    for j in cls.check_out:
+                        cls.rooms[k][j]="" if j!="age" or "status" or "guests" else 0
+            cls.rooms[k]["status"]="available"
+            break
+        print(cls.rooms)
+    @classmethod
+    def set_revenue(cls,rev):
+         cls.counter["revenue"]+=rev
+         
+        
 tracker()
 
 

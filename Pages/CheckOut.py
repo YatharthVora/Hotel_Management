@@ -80,6 +80,7 @@ if st.button("Confirm & Pay", use_container_width=True):
     elif payment_option == "UPI" and not upi_id:
         st.error("Please enter a valid UPI ID.")
     else:
+        main.tracker.check_out(room_number)##Add the room number to check out in the records
         st.success("Payment Successful! Your booking is confirmed.")
 
 if __name__ == "__main__":

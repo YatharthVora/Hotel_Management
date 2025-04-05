@@ -69,10 +69,9 @@ price_per_night = {
     "Twin": 200,
     "Suite": 250
 }
-total_price = duration * price_per_night.get(room_category, 100)
-
+if("total_price" not in st.session_state):
+    st.session_state.total_price = 0
 # Store total price in session state
-st.session_state.total_price = total_price
 # Booking Confirmation
 if st.button("Confirm Booking", use_container_width=True):
     try:
@@ -90,11 +89,15 @@ if st.button("Confirm Booking", use_container_width=True):
         check_in=check_in.strftime("%d %m %y")
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
+        total_price = duration * price_per_night.get(room_category, 100)
+        st.session_state.total_price = total_price
         details={"name":name,"age":age,"Dob":dob,"checkin":check_in,"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
         main.tracker.set_rooms(room_number,details)
         main.tracker.booked()
+        main.tracker.set_revenue(total_price)
         st.success(f"Booking confirmed for {name} in {room_category} category.")
         st.info(f"Room Number: {room_number} | Package: {package} | Duration: {duration} nights | Guests: {guests}")
+        main.tracker.Book=True
     except ValueError as e:
         st.error(str(e))
 if __name__ == "__main__":
