@@ -1,28 +1,5 @@
 import streamlit as st
-import pathlib
-import pandas as pd
 import main
-
-CSV_FILE = "store.csv"
-
-def fetch_booking_details(room_number):
-    try:
-        df = pd.read_csv(CSV_FILE, header=None)  # No headers in CSV
-        df.columns = ["Room Number", "Room Category", "Status", "Name", "Age", "DOB", 
-                      "Check-in", "Check-out", "Package", "Guests"]
-        
-        df["Room Number"] = df["Room Number"].astype(str)  # Ensure room number is string
-        
-        booking = df[df["Room Number"] == str(room_number)]  # Search for room number
-
-        if booking.empty:
-            return None  # No matching room found
-        
-        return booking.iloc[0].to_dict()  # Convert first match to dictionary
-
-    except FileNotFoundError:
-        st.error(f"Error: '{CSV_FILE}' not found. Make sure the file exists.")
-        return None
 
 def load_css(file_path):
     try:
@@ -31,20 +8,33 @@ def load_css(file_path):
     except FileNotFoundError:
         st.warning("CSS file not found. Skipping custom styling.")
 
+def get_booking_by_room(room_number):
+    room_number = str(room_number)
+    rooms = main.tracker.get_rooms()
+    for room in rooms:
+        if room.get("room") == room_number and room.get("status") == "occupied":
+            return room
+    return None
+
 st.title("Checkout")
 
 if st.sidebar.button("⬅️ Back", key="back_checkout"):
     st.switch_page("Pages/HomePage.py")
 
-# Fetch Room Number from Session State
-room_number = st.session_state.get("room_number")
+# Input for room number
+room_number = st.text_input("Enter Room Number for Checkout")
 
-# Fetch Booking Details
-booking_info = fetch_booking_details(room_number) if room_number else None
+booking_info = None
+if room_number:
+    booking_info = get_booking_by_room(room_number)
+    if booking_info:
+        st.success("Booking found for Room Number " + room_number)
+    else:
+        st.error("No active booking found with that room number.")
 
-# Billing Information
+# Billing Details
 st.header("Billing Details")
-name = st.text_input("Full Name", value=booking_info["Name"] if booking_info else "")
+name = st.text_input("Full Name", value=booking_info.get("name", "") if booking_info else "")
 email = st.text_input("Email")
 address = st.text_area("Billing Address")
 phone = st.text_input("Phone Number")
@@ -63,26 +53,24 @@ elif payment_option == "UPI":
 # Order Summary
 st.header("Order Summary")
 if booking_info:
-    st.text(f"Room Category: {booking_info['Room Category']}")
-    st.text(f"Duration: {booking_info['Check-in']} to {booking_info['Check-out']}")
-    st.text(f"Total Guests: {booking_info['Guests']}")
-    total_price = st.session_state.get("total_price", "N/A")
-    st.text(f"Total Price: ${total_price}")
+    st.text(f"Room: {booking_info['room']}")
+    st.text(f"Category: {booking_info['category']}")
+    st.text(f"Duration: {booking_info['checkin']} to {booking_info['checkout']}")
+    st.text(f"Total Guests: {booking_info['guests']}")
+    st.text(f"Package: {booking_info['package']}")
 else:
-    st.error("No booking found. Please check your booking details.")
+    st.info("Fill in the Room Number above to view order summary.")
 
-# Confirm and Pay Button
+# Confirm and Pay
 if st.button("Confirm & Pay", use_container_width=True):
-    if not name or not email or not address or not phone:
+    if not booking_info:
+        st.error("Invalid room number or no booking info available.")
+    elif not name or not email or not address or not phone:
         st.error("Please fill in all billing details.")
     elif payment_option in ["Credit Card", "Debit Card"] and (not card_number or not expiry_date or not cvv):
         st.error("Please enter valid card details.")
     elif payment_option == "UPI" and not upi_id:
         st.error("Please enter a valid UPI ID.")
     else:
-        main.tracker.check_out(room_number)##Add the room number to check out in the records
-        st.success("Payment Successful! Your booking is confirmed.")
-
-if __name__ == "__main__":
-    css_path = pathlib.Path("Pages/style.css")
-    load_css(css_path)
+        main.tracker.checkout(room_number)
+        st.success("✅ Payment Successful! Checkout confirmed.")
