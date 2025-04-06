@@ -51,7 +51,18 @@ st.header("Booking Information")
 name = st.text_input("Name")
 age = st.number_input("Age", 1, 120, step=1)
 dob = st.date_input("Date of Birth", value=datetime.date(2000, 1, 1), min_value=datetime.date(1900, 1, 1))
-guests= st.number_input("Number of Guests", 1, step=1)
+guest_classification=st.selectbox("Occupants of Room:",["Adults Only","Adult+Children"],index=0)
+if(guest_classification=="Adults Only"):
+    guests= st.number_input("Adults", 1, step=1)
+    Guests=str(guests)+" Adult"
+    print(Guests)
+else:
+    guests1= st.number_input("Adults:", 1, step=1)
+    guests2= st.number_input("Childern:", 1, step=1)
+    Guests=str(guests1)+"Adults"+str(guests2)+"Children"
+    print(Guests)
+
+
 package = st.selectbox("Select Package", ["Room Only", "Room + Resto"])
 room_number = st.selectbox("Enter Room Number",options=display(), placeholder="e.g., 401, 5001")
 
@@ -64,10 +75,10 @@ duration = (check_out - check_in).days
 
 # Calculate total price (Assume price per night based on category)
 price_per_night = {
-    "Single": 100,
-    "Duplex": 150,
-    "Twin": 200,
-    "Suite": 250
+    "Single": 2000,
+    "Duplex": 3000,
+    "Twin": 4000,
+    "Suite": 5000
 }
 if("total_price" not in st.session_state):
     st.session_state.total_price = 0
@@ -86,17 +97,22 @@ if st.button("Confirm Booking", use_container_width=True):
             raise ValueError("Select a room category.")
         if not re.match(r"^\d{1,5}$", room_number):
             raise ValueError("Enter a valid room number (e.g., 401, 5001).")
+        check=main.tracker.get_rooms()
+        for i in check:
+            if(i["room"]==room_number):
+                if(i["status"]=="occupied"):
+                    raise ValueError("Already Booked")
         check_in=check_in.strftime("%d %m %y")
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
         total_price = duration * price_per_night.get(room_category, 100)
         st.session_state.total_price = total_price
-        details={"name":name,"age":age,"Dob":dob,"checkin":check_in,"checkout":check_out,"package":package,"guests":guests,"status":"occupied"}
+        details={"name":name,"age":age,"Dob":dob,"checkin":check_in,"checkout":check_out,"package":package,"guests":Guests,"status":"occupied"}
         main.tracker.set_rooms(room_number,details)
         main.tracker.booked()
         main.tracker.set_revenue(total_price)
         st.success(f"Booking confirmed for {name} in {room_category} category.")
-        st.info(f"Room Number: {room_number} | Package: {package} | Duration: {duration} nights | Guests: {guests}")
+        st.info(f"Room Number: {room_number} | Package: {package} | Duration: {duration} nights | Guests: {Guests}")
         main.tracker.Book=True
     except ValueError as e:
         st.error(str(e))

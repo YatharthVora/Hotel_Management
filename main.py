@@ -20,7 +20,7 @@ class tracker:
                 csvreader=csv.reader(f)
                 for i in csvreader:
                         for k,v in enumerate(i):
-                                temp[cls.li[k]]=v if cls.li[k]!="guests" or cls.li[k]!="age" else int(v)
+                                temp[cls.li[k]]=v if  cls.li[k]!="age" else int(v)
                         if(len(temp)>0):
                             cls.rooms.append(temp)
                         temp={}

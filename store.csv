@@ -1,2 +1,4 @@
-101,Single,occupied,yatharth,18,25 06 06,05 04 25,06 04 25,Room Only,1
-102,Duplex,available
+101,Single,occupied,yatharth,18,18 06 06,06 04 25,07 04 25,Room Only,1 Adults
+102,Duplex,occupied,ashmi,18,18 06 06,06 04 25,07 04 25,Room Only,1Adults1Children
+103,Twin,occupied,heena,18,22 10 06,06 04 25,07 04 25,Room Only,1Adults1Children
+104,Suite,available

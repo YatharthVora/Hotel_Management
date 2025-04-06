@@ -17,6 +17,10 @@ class Exists(error):
 def load_css(file_path):
     with open(file_path) as f:
         st.html(f"<style>{f.read()}</style>")
+if(main.tracker.Book):
+    st.session_state.available=main.tracker.getcounter("available")
+    st.session_state.revenue=main.tracker.getcounter("revenue")
+    main.tracker.Book=False
 
 if "single" not in st.session_state:
     st.session_state.single=main.tracker.getcounter("single")
@@ -34,25 +38,24 @@ if "vacant" not in st.session_state:
     st.session_state.occupied=main.tracker.getcounter("occupied")
 if "revenue" not in st.session_state:
     st.session_state.revenue=main.tracker.getcounter("revenue")
-
-
+@st.cache_data
 def increase(category):
     if(category=="single"):
         main.tracker.increasecounter("single")
-        st.session_state.single=main.tracker.getcounter("single")
+        st.session_state.single+=1
     elif category=="duplex":
         main.tracker.increasecounter("duplex")
-        st.session_state.duplex=main.tracker.getcounter("duplex")
+        st.session_state.duplex+=1
     elif category=="twin":
         main.tracker.increasecounter("twin")
-        st.session_state.twin=main.tracker.getcounter("twin")
+        st.session_state.twin+=1
     elif category=="suite":
         main.tracker.increasecounter("suite")
-        st.session_state.suite=main.tracker.getcounter("suite")
+        st.session_state.suite+=1
     else:
         pass
     main.tracker.increasecounter("available")
-    st.session_state.available=main.tracker.getcounter("available")
+    st.session_state.available+=1
     st.session_state.occupied=main.tracker.getcounter("occupied")
 
 @st.dialog("Add Room")
