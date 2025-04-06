@@ -51,7 +51,7 @@ st.header("Booking Information")
 name = st.text_input("Name")
 age = st.number_input("Age", 1, 120, step=1)
 dob = st.date_input("Date of Birth", value=datetime.date(2000, 1, 1), min_value=datetime.date(1900, 1, 1))
-guests = st.number_input("Number of Guests", 1, step=1)
+guests= st.number_input("Number of Guests", 1, step=1)
 package = st.selectbox("Select Package", ["Room Only", "Room + Resto"])
 room_number = st.selectbox("Enter Room Number",options=display(), placeholder="e.g., 401, 5001")
 

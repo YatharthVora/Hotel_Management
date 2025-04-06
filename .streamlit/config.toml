@@ -1,8 +1,8 @@
 [client]
 showSidebarNavigation = false
 [theme]
-backgroundColor="#17153B"
-font="Algerian"  # Options: "sans serif", "serif", or "monospace"
-textColor="#C8ACD6"
-[server]
+backgroundColor="black"
+font="helvetica"  # Options: "sans serif", "serif", or "monospace"
+textColor="white"
+[server]    
 headless=true

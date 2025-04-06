@@ -1,15 +1,20 @@
 
 .st-key-logout button
 {
-    background-color: #433D8B;
+    background-color: #5a0280;
 } 
  .st-key-RoomAddition button
  {
-    margin-left: 335px; 
+   
     margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
     background-color:#5a0280;
  }
-
+ .st-emotion-cache-13rte3t{
+    margin: auto;
+ }
 .stSidebar
 {
     background-color: #2e236c;
@@ -30,26 +35,46 @@
 {
     background-color: #433D8B
 }
-
+a .nav-link {
+    background-color: rgb(190, 187, 223);
+    --hover-color: #8783bb;
+}
 .st-key-confirm button
 {
-    background-color: #EFEFD0
+    background-color: rgb(110 104 181);
 }
-.stColumn
-{
-    border-width: 3px !important;
-    border-color: #d7afeb !important;
+.menu .nav-item .nav-link.active{
+background-color: rgb(162, 159, 202);
 }
+
+.stColumn,
 div.st-emotion-cache-16h9saz.eu6p4el5
 {
     border-width: 3px !important;
-    border-color: #d7afeb !important;
+    /* border-color: #d7afeb !important; */
+    background-color: #f7f5f1;
+    color: black !important;
+    box-shadow: rgb(152, 148, 148) 0px 4px 8px;
+    font-size: 2rem;
+    font-weight: 300;  
+}
+.div.st-emotion-cache-16h9saz.eu6p4el5{
+    width: 1rem;
+    padding :3rem;
+    margin: 20px;
+}
+.stColumn:hover,
+div.st-emotion-cache-16h9saz.eu6p4el5:hover{
+    transform: scale(1.025);
+    transition: ease-in;
 }
 div.st-emotion-cache-1vs77ny.e1icttdg0 hr
 {
-    background-color:"white";
+    background-color:"black";
 }
-
+div.st-emotion-cache-16h9saz.eu6p4el5{
+    text-align: center;
+}
 
 .st-key-back_room button
 {
@@ -63,4 +88,36 @@ div.st-emotion-cache-1vs77ny.e1icttdg0 hr
 .st-key-back_checkout button
 {
     background-color: #433D8B
+}
+
+.st-bc {
+    color: #433D8B;
+}
+
+/* body {
+    margin: 0px;
+    font-family: Algerian;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #d81818;
+    background-image: url(/eevee_by_aekx-d60a5pw.png);
+    background-size: cover;
+    background-position: center;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-font-smoothing: auto;
+} */
+ hr{
+   border: black 3px solid;
+   background-color: black;
+ }
+ .st-emotion-cache-w2l3e0 hr {
+    margin: 2em 0px;
+    padding: 0px;
+    background-color: black;
+   
+}
+.st-emotion-cache-ocqkz7{
+    justify-content: space-evenly;
+    margin: 10px;
 }
