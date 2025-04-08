@@ -3,10 +3,10 @@ import csv
 
 class tracker:
     rooms=[]
-    counter={"single":0,"duplex":0,"twin":0,"suite":0,"available":0,"occupied":0,"revenue":0}
+    counter={"single":0,"duplex":0,"twin":0,"suite":0,"available":0,"occupied":0,"revenue":0,"total":0}
     data=[]
     li= ("room","category","status","name","age","Dob","checkin","checkout","package","guests")
-    check_out=("status","name","age","Dob","checkin","checkout","package","guests")
+    check_out=("name","age","Dob","checkin","checkout","package","guests")
     Book=False
     @classmethod
     def __init__(cls):
@@ -20,6 +20,9 @@ class tracker:
                 csvreader=csv.reader(f)
                 for i in csvreader:
                         for k,v in enumerate(i):
+                                if(v==""):
+                                     temp[cls.li[k]]=None
+                                     continue
                                 temp[cls.li[k]]=v if  cls.li[k]!="age" else int(v)
                         if(len(temp)>0):
                             cls.rooms.append(temp)
@@ -46,7 +49,10 @@ class tracker:
         return cls.counter[key]
     @classmethod
     def increasecounter(cls,key):
+        cls.counter["total"]=cls.counter["available"]+cls.counter["occupied"]
         cls.counter[key]+=1
+        print("cls.counter[key]",cls.counter[key])
+        
     @classmethod
     def get_rooms(cls):
         return cls.rooms
@@ -75,19 +81,29 @@ class tracker:
         cls.counter["occupied"]+=1
     @classmethod
     def checkout(cls,room):
+        cls.Book=True
         for k,i in enumerate(cls.rooms):
             print(i)
             if(i["room"]==room):
+                    print("check2")
                     for j in cls.check_out:
-                        cls.rooms[k][j]="" if j!="age" or "status" or "guests" else 0
-            cls.rooms[k]["status"]="available"
-            break
-        print(cls.rooms)
+                        print(j)
+                        cls.rooms[k][j]=None
+                    cls.rooms[k]["status"]="available"
+                    break            
+        print("-----------checkout----------------")
     @classmethod
     def set_revenue(cls,rev):
          cls.counter["revenue"]+=rev
+    @classmethod
+    def get_counter(cls):
+         return cls.counter
+    @classmethod
+    def checkOut(cls):
+         cls.counter["available"]+=1
+         cls.counter["occupied"]-=1
          
-        
+         
 tracker()
 
 

@@ -5,7 +5,8 @@
 } 
  .st-key-RoomAddition button
  {
-   
+   font-size: 50px;
+   padding: 20px;
     margin-top: 20px;
     margin-bottom: 30px;
     display: flex;
@@ -17,23 +18,23 @@
  }
 .stSidebar
 {
-    background-color: #2e236c;
+    background-color: #202020;
 }
 .st-key-Duplex button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 .st-key-Single button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 .st-key-Twin button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 .st-key-Suite button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 a .nav-link {
     background-color: rgb(190, 187, 223);
@@ -47,27 +48,27 @@ a .nav-link {
 background-color: rgb(162, 159, 202);
 }
 
-.stColumn,
+/* .stColumn,
 div.st-emotion-cache-16h9saz.eu6p4el5
 {
     border-width: 3px !important;
     /* border-color: #d7afeb !important; */
-    background-color: #f7f5f1;
+    /* background-color: #f7f5f1;
     color: black !important;
     box-shadow: rgb(152, 148, 148) 0px 4px 8px;
     font-size: 2rem;
-    font-weight: 300;  
-}
+    font-weight: 300;   */
+/* } */ 
 .div.st-emotion-cache-16h9saz.eu6p4el5{
     width: 1rem;
     padding :3rem;
     margin: 20px;
 }
-.stColumn:hover,
-div.st-emotion-cache-16h9saz.eu6p4el5:hover{
+/* .stColumn:hover, */
+/* div.st-emotion-cache-16h9saz.eu6p4el5:hover{
     transform: scale(1.025);
     transition: ease-in;
-}
+} */
 div.st-emotion-cache-1vs77ny.e1icttdg0 hr
 {
     background-color:"black";
@@ -78,20 +79,20 @@ div.st-emotion-cache-16h9saz.eu6p4el5{
 
 .st-key-back_room button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 
 .st-key-back_booking button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 .st-key-back_checkout button
 {
-    background-color: #433D8B
+    background-color: #5a0280
 }
 
-.st-bc {
-    color: #433D8B;
+.st-bc{
+    color:#433D8B;
 }
 
 /* body {
@@ -121,3 +122,37 @@ div.st-emotion-cache-16h9saz.eu6p4el5{
     justify-content: space-evenly;
     margin: 10px;
 }
+
+.st-emotion-cache-1t71efj {
+    font-family: helvetica;
+    color: black;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.stColumn, div.st-emotion-cache-16h9saz.eu6p4el5 {
+   
+    background-color: black;
+    color: white !important;
+   
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.st-emotion-cache-w2l3e0 hr {
+    margin: 2em 0px;
+    padding: 0.5px;
+    background-color: rgb(255, 255, 255);
+}
+
+/* .stColumn, div.st-emotion-cache-16h9saz.eu6p4el5 {
+    border: solid 3px #00FFF5 !important;
+    /* border-color: #d7afeb !important; */
+    /* background-color: #202020;
+    color: white !important;
+    box-shadow: #00FFF5 0px 4px 8px;
+    font-size: 2rem;
+    font-weight: 300;
+}  */

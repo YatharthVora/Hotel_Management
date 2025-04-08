@@ -81,10 +81,6 @@ Categories=("Single", "Duplex", "Twin","Suite")
 packages=("Room Only", "Room + Resto")
 rooms=list(main.tracker.get_rooms())
 
-
-
-
-
 df=pd.DataFrame.from_dict(filter())
 print(df)
 st.dataframe(

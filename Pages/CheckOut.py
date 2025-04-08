@@ -1,6 +1,6 @@
 import streamlit as st
 import main
-
+import pathlib
 def load_css(file_path):
     try:
         with open(file_path) as f:
@@ -8,6 +8,7 @@ def load_css(file_path):
     except FileNotFoundError:
         st.warning("CSS file not found. Skipping custom styling.")
 
+   
 def get_booking_by_room(room_number):
     room_number = str(room_number)
     rooms = main.tracker.get_rooms()
@@ -53,11 +54,18 @@ elif payment_option == "UPI":
 # Order Summary
 st.header("Order Summary")
 if booking_info:
-    st.text(f"Room: {booking_info['room']}")
-    st.text(f"Category: {booking_info['category']}")
-    st.text(f"Duration: {booking_info['checkin']} to {booking_info['checkout']}")
-    st.text(f"Total Guests: {booking_info['guests']}")
-    st.text(f"Package: {booking_info['package']}")
+    summary=st.container(border=True)
+    st.markdown("---")
+    summary.text(f"Room: {booking_info['room']}")
+    st.markdown("---")
+    summary.text(f"Category: {booking_info['category']}")
+    st.markdown("---")
+    summary.text(f"Duration: {booking_info['checkin']} to {booking_info['checkout']}")
+    st.markdown("---")
+    summary.text(f"Total Guests: {booking_info['guests']}")
+    st.markdown("---")
+    summary.text(f"Package: {booking_info['package']}")
+    summary.text(f"Total: {main.tracker.counter['revenue']}")
 else:
     st.info("Fill in the Room Number above to view order summary.")
 
@@ -72,5 +80,10 @@ if st.button("Confirm & Pay", use_container_width=True):
     elif payment_option == "UPI" and not upi_id:
         st.error("Please enter a valid UPI ID.")
     else:
+        main.tracker.checkOut()
         main.tracker.checkout(room_number)
         st.success("✅ Payment Successful! Checkout confirmed.")
+        
+if __name__=="__main__":
+     css_path=pathlib.Path("Pages/style.css")
+     load_css(css_path)

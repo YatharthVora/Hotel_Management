@@ -34,7 +34,7 @@ def display():
 
 
 # Room Selection
-st.sidebar.markdown("<h3 style='color:C8ACD6;'>Select Room Category</h3>",unsafe_allow_html=True)
+st.sidebar.markdown("<h3 style='color:white;'>Select Room Category</h3>",unsafe_allow_html=True)
 st.sidebar.markdown("---")
 categories = ["Single", "Duplex", "Twin","Suite"]
 if "room_category" not in st.session_state:
@@ -116,6 +116,7 @@ if st.button("Confirm Booking", use_container_width=True):
         main.tracker.Book=True
     except ValueError as e:
         st.error(str(e))
+
 if __name__ == "__main__":
     css_path=pathlib.Path("Pages/style.css")
     load_css(css_path)    
