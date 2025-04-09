@@ -83,25 +83,42 @@ rooms=list(main.tracker.get_rooms())
 
 df=pd.DataFrame.from_dict(filter())
 print(df)
+st.markdown(
+    """
+    <style>
+        div[data-testid="stDataFrame"] {
+            border: 3px solid #00FFF5;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00FFF5;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.dataframe(
     df,
     use_container_width=True,
     column_config={
-        "Room":"Room",
-        "Category":"Category",
-        "Name":"Name",
-        "Age":"Age",
-        "Package":"Package",
-        "Dob":"Date of Birth",
-        "Check-in":"Check-in",
-        "Check-out":"Check-out",
-        "Guest":"Guests",
-        "Status":"Status",
+        "Room": "Room",
+        "Category": "Category",
+        "Name": "Name",
+        "Age": "Age",
+        "Package": "Package",
+        "Dob": "Date of Birth",
+        "Check-in": "Check-in",
+        "Check-out": "Check-out",
+        "Guest": "Guests",
+        "Status": "Status",
     },
     hide_index=True,
     on_select="ignore",
     key="table",
-    )
+)
+
 
 b5=st.sidebar.button("⬅️Back",key="back_room")
 if(b5):
