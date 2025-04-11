@@ -1,6 +1,7 @@
 import streamlit as st
 import main
 import pathlib
+import datetime
 def load_css(file_path):
     try:
         with open(file_path) as f:
@@ -54,18 +55,52 @@ elif payment_option == "UPI":
 # Order Summary
 st.header("Order Summary")
 if booking_info:
-    summary=st.container(border=True)
-    st.markdown("---")
-    summary.text(f"Room: {booking_info['room']}")
-    st.markdown("---")
-    summary.text(f"Category: {booking_info['category']}")
-    st.markdown("---")
-    summary.text(f"Duration: {booking_info['checkin']} to {booking_info['checkout']}")
-    st.markdown("---")
-    summary.text(f"Total Guests: {booking_info['guests']}")
-    st.markdown("---")
-    summary.text(f"Package: {booking_info['package']}")
-    summary.text(f"Total: {main.tracker.counter['revenue']}")
+    day=(datetime.datetime.strptime(booking_info['checkout'],"%d %m %y")-datetime.datetime.strptime(booking_info['checkin'],"%d %m %y")).days
+    price=main.tracker.get_price(booking_info['category'],day)
+    st.markdown(
+        f"""
+        <style>
+            #category-container {{
+                border: 3px solid #FF05C8;
+                background-color: #202020;
+                box-shadow: 0px 0px 15px 5px #FF05C8;
+                font-size: 2rem;
+                font-weight: 300;
+                padding: 20px;
+                border-radius: 15px;
+                margin-bottom: 50px;
+                text-align:center;
+            }}
+            #inner-container {{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom:10px;
+                text-align:left;
+           
+            }}
+            #cTitle{{
+             margin-top:10px;
+            }}
+           
+        </style>
+
+        <div id="category-container">
+            <h2 style='text-align:center;' id="cTitle">Category</h2>
+            <hr>
+            <div id="inner-container">
+                <div><b>Name: </b>{name}</div>
+                <div><b>Room: </b>{booking_info['room']}</div>
+                <div><b>Category: </b>{booking_info['category']}</div>
+                <div><b>Check-in: </b>{booking_info['checkin']} to Check-out:{booking_info['checkout']}</div>
+                <div><b>Guests: </b>{booking_info['guests']}</div>
+                <div><b>Package: </b>{booking_info['package']}</div>
+                <div>Total:</b>{price}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 else:
     st.info("Fill in the Room Number above to view order summary.")
 

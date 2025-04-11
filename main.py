@@ -8,6 +8,12 @@ class tracker:
     li= ("room","category","status","name","age","Dob","checkin","checkout","package","guests")
     check_out=("name","age","Dob","checkin","checkout","package","guests")
     Book=False
+    price_per_night = {
+    "Single": 2000,
+    "Duplex": 3000,
+    "Twin": 4000,
+    "Suite": 5000
+}
     @classmethod
     def __init__(cls):
         cls.store_count=0
@@ -30,10 +36,12 @@ class tracker:
         with open("store.txt","r") as f:
              tmp=f.readline()
              li=tmp.split(",")
+             print(li)
              if(tmp!=""):
                 for ind,i in enumerate(cls.counter):
                     if(li[ind]!=""):
                         cls.counter[i]=int(li[ind])
+                        print(cls.counter)
                   
         print("-------------------------retrived-----------------")
         print(cls.rooms)
@@ -49,9 +57,8 @@ class tracker:
         return cls.counter[key]
     @classmethod
     def increasecounter(cls,key):
-        cls.counter["total"]=cls.counter["available"]+cls.counter["occupied"]
         cls.counter[key]+=1
-        print("cls.counter[key]",cls.counter[key])
+        print("counter increased",cls.counter)
         
     @classmethod
     def get_rooms(cls):
@@ -102,6 +109,13 @@ class tracker:
     def checkOut(cls):
          cls.counter["available"]+=1
          cls.counter["occupied"]-=1
+    @classmethod 
+    def get_price(cls,cat,days):
+         price=cls.price_per_night[cat]
+         return (price*days)
+    @classmethod
+    def set_total(cls,total):
+         cls.counter["total"]=total
          
          
 tracker()

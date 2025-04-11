@@ -74,12 +74,7 @@ check_out = st.date_input("Check-out Date", min_value=check_in + datetime.timede
 duration = (check_out - check_in).days
 
 # Calculate total price (Assume price per night based on category)
-price_per_night = {
-    "Single": 2000,
-    "Duplex": 3000,
-    "Twin": 4000,
-    "Suite": 5000
-}
+
 if("total_price" not in st.session_state):
     st.session_state.total_price = 0
 # Store total price in session state
@@ -105,7 +100,7 @@ if st.button("Confirm Booking", use_container_width=True):
         check_in=check_in.strftime("%d %m %y")
         check_out=check_out.strftime("%d %m %y")
         dob=dob.strftime("%d %m %y")
-        total_price = duration * price_per_night.get(room_category, 100)
+        total_price = main.tracker.get_price(category,duration)
         st.session_state.total_price = total_price
         details={"name":name,"age":age,"Dob":dob,"checkin":check_in,"checkout":check_out,"package":package,"guests":Guests,"status":"occupied"}
         main.tracker.set_rooms(room_number,details)

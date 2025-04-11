@@ -39,7 +39,7 @@ if "vacant" not in st.session_state:
 if "revenue" not in st.session_state:
     st.session_state.revenue=main.tracker.getcounter("revenue")
 if "total" not in st.session_state:
-    st.session_state.total=main.tracker.getcounter("available")
+    st.session_state.total=main.tracker.getcounter("total")
 def increase(category):
     if(category=="single"):
         main.tracker.increasecounter("single")
@@ -77,6 +77,7 @@ def addroom():
             increase(category.lower())
             main.tracker.add(room_number,category)
             st.session_state.total=st.session_state.available+st.session_state.occupied
+            main.tracker.set_total(st.session_state.total)
             st.rerun()
     except InvalidRoomInput:
         st.error("Enter the room")
@@ -208,8 +209,8 @@ if(selected=="Booking"):
 if(selected=="Check Out"):
     st.switch_page("Pages/CheckOut.py")
 
-
-b4=st.sidebar.button("***Log out***",icon="🚪",key="logout",use_container_width=True)
+st.sidebar.image("logo-cropped.svg",width=150)
+b4=st.sidebar.button("Log out",icon="🚪",key="logout",use_container_width=True)
 if(b4):
     st.switch_page("LoginPage.py")
 
@@ -220,17 +221,17 @@ add_room=st.button("Addition of Room",key="RoomAddition",icon="➕")
 if(add_room):
     addroom()
 
-st.bar_chart({"Target":st.session_state.revenue*2 if st.session_state.revenue!=0 else 10000,"Achieved":st.session_state.revenue},horizontal=True,height=250,color="#FFE605")
+st.bar_chart({"Target":st.session_state.revenue*2 if st.session_state.revenue!=0 else 10000,"Achieved":st.session_state.revenue},horizontal=True,height=250,color="#32E975")
 revenue_cont=st.container()
 with revenue_cont:
     st.markdown(
         f"""
          <style>
             #revenue-container {{
-                 border: 3px solid #FFE605;
+                 border: 3px solid #32E975;
             background-color: #202020;
             color: white;
-            box-shadow: 0px 0px 15px 5px #FFE605;
+            box-shadow: 0px 0px 15px 5px #32E975;
             font-size: 2rem;
             font-weight: 300;
             padding: 20px;

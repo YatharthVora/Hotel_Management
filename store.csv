@@ -1,13 +1,14 @@
 101,Single,available,,,,,,,
-102,Single,available
+102,Single,occupied,ashmi,18,21 05 06,11 04 25,12 04 25,Room Only,1 Adult
 103,Duplex,available,,,,,,,
 104,Duplex,available
 105,Duplex,available
-106,Duplex,available
+106,Duplex,occupied,ashmi,18,12 06 06,11 04 25,12 04 25,Room Only,1 Adult
 107,Duplex,available
 108,Duplex,available
-109,Twin,available
+109,Twin,occupied,ashmi,18,12 06 06,11 04 25,12 04 25,Room Only,1Adults1Children
 110,Twin,available
 112,Suite,available
 113,Suite,available
 114,Suite,available
+116,Single,available
