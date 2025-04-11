@@ -30,7 +30,7 @@ def filter():
         print(filter_name)
         if(filter_name!=""):
             for i in filter_dic:
-                if("name" in i.keys() and i["name"]==filter_name):
+                if("name" in i.keys() and i["name"] == filter_name):
                     tmp.append(i)
                     print(tmp)
             return tmp

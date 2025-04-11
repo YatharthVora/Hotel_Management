@@ -95,22 +95,6 @@ div.st-emotion-cache-16h9saz.eu6p4el5{
 .st-bv {
     color:#808186 ;
 }
-
-
-
-/* body {
-    margin: 0px;
-    font-family: Algerian;
-    font-weight: 400;
-    line-height: 1.6;
-    color: #d81818;
-    background-image: url(/eevee_by_aekx-d60a5pw.png);
-    background-size: cover;
-    background-position: center;
-    text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-font-smoothing: auto;
-} */
  hr{
    border: black 3px solid;
    background-color: black;
@@ -164,4 +148,7 @@ div.st-emotion-cache-16h9saz.eu6p4el5{
     margin-top: 2px;
     border: 3px #5a0280 solid;
     box-shadow: 0px 0px 15px 5px #5a0280;
+}
+.st-bc {
+    color: #808186;
 }
