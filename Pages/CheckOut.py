@@ -2,6 +2,7 @@ import streamlit as st
 import main
 import pathlib
 import datetime
+import re
 def load_css(file_path):
     try:
         with open(file_path) as f:
@@ -43,7 +44,7 @@ phone = st.text_input("Phone Number")
 
 # Payment Method
 st.header("Payment Method")
-payment_option = st.radio("Select Payment Method", ["Credit Card", "Debit Card", "UPI", "Net Banking"], horizontal=True)
+payment_option = st.radio("Select Payment Method", ["Credit Card", "Debit Card", "UPI"], horizontal=True)
 
 if payment_option in ["Credit Card", "Debit Card"]:
     card_number = st.text_input("Card Number")
@@ -106,15 +107,37 @@ else:
 
 # Confirm and Pay
 if st.button("Confirm & Pay", use_container_width=True):
+    error=False
     if not booking_info:
         st.error("Invalid room number or no booking info available.")
+        error = True
     elif not name or not email or not address or not phone:
         st.error("Please fill in all billing details.")
-    elif payment_option in ["Credit Card", "Debit Card"] and (not card_number or not expiry_date or not cvv):
-        st.error("Please enter valid card details.")
-    elif payment_option == "UPI" and not upi_id:
-        st.error("Please enter a valid UPI ID.")
-    else:
+        error = True
+    elif not re.match(r"^[\w\.-]+@[\w\.-]+\.\w{2,}$", email):
+        st.error("Invalid Email")
+        error = True
+    elif any(symbol in name for symbol in "@_/\\"):
+        st.error("Invalid Name")
+        error = True
+    elif not re.match(r"^\d{10}$", phone):
+        st.error("Invalid Phone number")
+        error = True
+    elif payment_option in ["Credit Card", "Debit Card"]:
+        if not re.match(r"^\d{16}$", card_number):
+            st.error("Invalid Card Number")
+            error = True
+        if not re.match(r"^(0[1-9]|1[0-2])\d{2}$", expiry_date):
+            st.error("Invalid Expiry Date (format MMYY)")
+            error = True
+        if not re.match(r"^\d{3}$", cvv):
+            st.error("Invalid CVV")
+            error = True
+    elif payment_option == "UPI" and not re.match(r"^[\w\.-]+@[\w]+$", upi_id):
+        st.error("Invalid UPI ID")
+        error = True
+
+    if not error:
         main.tracker.checkOut()
         main.tracker.checkout(room_number)
         st.success("✅ Payment Successful! Checkout confirmed.")
